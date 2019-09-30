@@ -1,0 +1,6 @@
+framework module YCAlert {
+  umbrella header "YCAlert-umbrella.h"
+
+  export *
+  module * { export * }
+}

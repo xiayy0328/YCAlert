@@ -1,0 +1,602 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3417A85280B4ADF86F1F64FF /* Pods_YCAlertDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88255DED5B0EE4E52A408DB3 /* Pods_YCAlertDemo.framework */; };
+		42F9C56723418194003E7C8A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F9C56623418194003E7C8A /* AppDelegate.m */; };
+		42F9C56D23418194003E7C8A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F9C56C23418194003E7C8A /* ViewController.m */; };
+		42F9C57023418194003E7C8A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42F9C56E23418194003E7C8A /* Main.storyboard */; };
+		42F9C57223418196003E7C8A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42F9C57123418196003E7C8A /* Assets.xcassets */; };
+		42F9C57523418196003E7C8A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42F9C57323418196003E7C8A /* LaunchScreen.storyboard */; };
+		42F9C57823418196003E7C8A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F9C57723418196003E7C8A /* main.m */; };
+		42F9C58523418662003E7C8A /* AlertTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F9C58423418662003E7C8A /* AlertTableViewController.m */; };
+		42F9C58823418673003E7C8A /* ActionSheetTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F9C58723418673003E7C8A /* ActionSheetTableViewController.m */; };
+		42F9C5AA2341871A003E7C8A /* NSLayoutConstraint+MASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F9C58C2341871A003E7C8A /* NSLayoutConstraint+MASDebugAdditions.m */; };
+		42F9C5AB2341871A003E7C8A /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F9C5952341871A003E7C8A /* ViewController+MASAdditions.m */; };
+		42F9C5AC2341871A003E7C8A /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F9C5992341871A003E7C8A /* MASCompositeConstraint.m */; };
+		42F9C5AD2341871A003E7C8A /* MASConstraintMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F9C59A2341871A003E7C8A /* MASConstraintMaker.m */; };
+		42F9C5AE2341871A003E7C8A /* MASLayoutConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F9C59B2341871A003E7C8A /* MASLayoutConstraint.m */; };
+		42F9C5AF2341871A003E7C8A /* NSArray+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F9C59C2341871A003E7C8A /* NSArray+MASAdditions.m */; };
+		42F9C5B02341871A003E7C8A /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F9C59D2341871A003E7C8A /* View+MASAdditions.m */; };
+		42F9C5B12341871A003E7C8A /* MASConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F9C5A02341871A003E7C8A /* MASConstraint.m */; };
+		42F9C5B22341871A003E7C8A /* MASViewConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F9C5A22341871A003E7C8A /* MASViewConstraint.m */; };
+		42F9C5B32341871A003E7C8A /* MASViewAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F9C5A32341871A003E7C8A /* MASViewAttribute.m */; };
+		42F9C5B42341871A003E7C8A /* UIView+SDAutoLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F9C5A52341871A003E7C8A /* UIView+SDAutoLayout.m */; };
+		42F9C5B52341871A003E7C8A /* UITableView+SDAutoTableViewCellHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F9C5A82341871A003E7C8A /* UITableView+SDAutoTableViewCellHeight.m */; };
+		42F9C5B923418751003E7C8A /* NibView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F9C5B823418751003E7C8A /* NibView.m */; };
+		42F9C5BD23418771003E7C8A /* NibView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42F9C5BC23418771003E7C8A /* NibView.xib */; };
+		42F9C5C02341879F003E7C8A /* SelectedListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F9C5BF2341879F003E7C8A /* SelectedListView.m */; };
+		42F9C5C3234187B2003E7C8A /* SelectedListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F9C5C2234187B2003E7C8A /* SelectedListModel.m */; };
+		42F9C5C62341880E003E7C8A /* FontSizeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F9C5C52341880E003E7C8A /* FontSizeView.m */; };
+		42F9C5C923418862003E7C8A /* SignFinishView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F9C5C823418862003E7C8A /* SignFinishView.m */; };
+		42F9C5CC23418897003E7C8A /* OpenPushView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F9C5CB23418897003E7C8A /* OpenPushView.m */; };
+		42F9C5CF234188E1003E7C8A /* ShareButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F9C5CE234188E1003E7C8A /* ShareButton.m */; };
+		42F9C5D22341890C003E7C8A /* AllShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F9C5D12341890C003E7C8A /* AllShareView.m */; };
+		42F9C5D5234189CE003E7C8A /* ShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F9C5D4234189CE003E7C8A /* ShareView.m */; };
+		42F9C5D723418E68003E7C8A /* address.plist in Resources */ = {isa = PBXBuildFile; fileRef = 42F9C5D623418E68003E7C8A /* address.plist */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		350DA1FAA06A93116B5E256C /* Pods-YCAlertDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YCAlertDemo.debug.xcconfig"; path = "Target Support Files/Pods-YCAlertDemo/Pods-YCAlertDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		42F9C56223418194003E7C8A /* YCAlertDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YCAlertDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		42F9C56523418194003E7C8A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		42F9C56623418194003E7C8A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		42F9C56B23418194003E7C8A /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		42F9C56C23418194003E7C8A /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		42F9C56F23418194003E7C8A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		42F9C57123418196003E7C8A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		42F9C57423418196003E7C8A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		42F9C57623418196003E7C8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		42F9C57723418196003E7C8A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		42F9C58323418662003E7C8A /* AlertTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlertTableViewController.h; sourceTree = "<group>"; };
+		42F9C58423418662003E7C8A /* AlertTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlertTableViewController.m; sourceTree = "<group>"; };
+		42F9C58623418673003E7C8A /* ActionSheetTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActionSheetTableViewController.h; sourceTree = "<group>"; };
+		42F9C58723418673003E7C8A /* ActionSheetTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActionSheetTableViewController.m; sourceTree = "<group>"; };
+		42F9C58B2341871A003E7C8A /* MASCompositeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASCompositeConstraint.h; sourceTree = "<group>"; };
+		42F9C58C2341871A003E7C8A /* NSLayoutConstraint+MASDebugAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+MASDebugAdditions.m"; sourceTree = "<group>"; };
+		42F9C58D2341871A003E7C8A /* MASConstraint+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MASConstraint+Private.h"; sourceTree = "<group>"; };
+		42F9C58E2341871A003E7C8A /* MASLayoutConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASLayoutConstraint.h; sourceTree = "<group>"; };
+		42F9C58F2341871A003E7C8A /* NSArray+MASShorthandAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+MASShorthandAdditions.h"; sourceTree = "<group>"; };
+		42F9C5902341871A003E7C8A /* MASConstraintMaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASConstraintMaker.h; sourceTree = "<group>"; };
+		42F9C5912341871A003E7C8A /* View+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "View+MASAdditions.h"; sourceTree = "<group>"; };
+		42F9C5922341871A003E7C8A /* NSArray+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+MASAdditions.h"; sourceTree = "<group>"; };
+		42F9C5932341871A003E7C8A /* MASUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASUtilities.h; sourceTree = "<group>"; };
+		42F9C5942341871A003E7C8A /* MASViewAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASViewAttribute.h; sourceTree = "<group>"; };
+		42F9C5952341871A003E7C8A /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ViewController+MASAdditions.m"; sourceTree = "<group>"; };
+		42F9C5962341871A003E7C8A /* MASViewConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASViewConstraint.h; sourceTree = "<group>"; };
+		42F9C5972341871A003E7C8A /* MASConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASConstraint.h; sourceTree = "<group>"; };
+		42F9C5982341871A003E7C8A /* NSLayoutConstraint+MASDebugAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+MASDebugAdditions.h"; sourceTree = "<group>"; };
+		42F9C5992341871A003E7C8A /* MASCompositeConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASCompositeConstraint.m; sourceTree = "<group>"; };
+		42F9C59A2341871A003E7C8A /* MASConstraintMaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASConstraintMaker.m; sourceTree = "<group>"; };
+		42F9C59B2341871A003E7C8A /* MASLayoutConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASLayoutConstraint.m; sourceTree = "<group>"; };
+		42F9C59C2341871A003E7C8A /* NSArray+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+MASAdditions.m"; sourceTree = "<group>"; };
+		42F9C59D2341871A003E7C8A /* View+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "View+MASAdditions.m"; sourceTree = "<group>"; };
+		42F9C59E2341871A003E7C8A /* View+MASShorthandAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "View+MASShorthandAdditions.h"; sourceTree = "<group>"; };
+		42F9C59F2341871A003E7C8A /* Masonry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Masonry.h; sourceTree = "<group>"; };
+		42F9C5A02341871A003E7C8A /* MASConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASConstraint.m; sourceTree = "<group>"; };
+		42F9C5A12341871A003E7C8A /* ViewController+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ViewController+MASAdditions.h"; sourceTree = "<group>"; };
+		42F9C5A22341871A003E7C8A /* MASViewConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASViewConstraint.m; sourceTree = "<group>"; };
+		42F9C5A32341871A003E7C8A /* MASViewAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASViewAttribute.m; sourceTree = "<group>"; };
+		42F9C5A52341871A003E7C8A /* UIView+SDAutoLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SDAutoLayout.m"; sourceTree = "<group>"; };
+		42F9C5A62341871A003E7C8A /* UITableView+SDAutoTableViewCellHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+SDAutoTableViewCellHeight.h"; sourceTree = "<group>"; };
+		42F9C5A72341871A003E7C8A /* SDAutoLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDAutoLayout.h; sourceTree = "<group>"; };
+		42F9C5A82341871A003E7C8A /* UITableView+SDAutoTableViewCellHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+SDAutoTableViewCellHeight.m"; sourceTree = "<group>"; };
+		42F9C5A92341871A003E7C8A /* UIView+SDAutoLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SDAutoLayout.h"; sourceTree = "<group>"; };
+		42F9C5B723418751003E7C8A /* NibView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NibView.h; sourceTree = "<group>"; };
+		42F9C5B823418751003E7C8A /* NibView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NibView.m; sourceTree = "<group>"; };
+		42F9C5BC23418771003E7C8A /* NibView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NibView.xib; sourceTree = "<group>"; };
+		42F9C5BE2341879F003E7C8A /* SelectedListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectedListView.h; sourceTree = "<group>"; };
+		42F9C5BF2341879F003E7C8A /* SelectedListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectedListView.m; sourceTree = "<group>"; };
+		42F9C5C1234187B2003E7C8A /* SelectedListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectedListModel.h; sourceTree = "<group>"; };
+		42F9C5C2234187B2003E7C8A /* SelectedListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectedListModel.m; sourceTree = "<group>"; };
+		42F9C5C42341880E003E7C8A /* FontSizeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FontSizeView.h; sourceTree = "<group>"; };
+		42F9C5C52341880E003E7C8A /* FontSizeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FontSizeView.m; sourceTree = "<group>"; };
+		42F9C5C723418862003E7C8A /* SignFinishView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignFinishView.h; sourceTree = "<group>"; };
+		42F9C5C823418862003E7C8A /* SignFinishView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignFinishView.m; sourceTree = "<group>"; };
+		42F9C5CA23418897003E7C8A /* OpenPushView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenPushView.h; sourceTree = "<group>"; };
+		42F9C5CB23418897003E7C8A /* OpenPushView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OpenPushView.m; sourceTree = "<group>"; };
+		42F9C5CD234188E1003E7C8A /* ShareButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShareButton.h; sourceTree = "<group>"; };
+		42F9C5CE234188E1003E7C8A /* ShareButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShareButton.m; sourceTree = "<group>"; };
+		42F9C5D02341890C003E7C8A /* AllShareView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AllShareView.h; sourceTree = "<group>"; };
+		42F9C5D12341890C003E7C8A /* AllShareView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AllShareView.m; sourceTree = "<group>"; };
+		42F9C5D3234189CE003E7C8A /* ShareView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShareView.h; sourceTree = "<group>"; };
+		42F9C5D4234189CE003E7C8A /* ShareView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShareView.m; sourceTree = "<group>"; };
+		42F9C5D623418E68003E7C8A /* address.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = address.plist; sourceTree = "<group>"; };
+		775E8B691DD872A5AD651F9C /* Pods-YCAlertDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YCAlertDemo.release.xcconfig"; path = "Target Support Files/Pods-YCAlertDemo/Pods-YCAlertDemo.release.xcconfig"; sourceTree = "<group>"; };
+		88255DED5B0EE4E52A408DB3 /* Pods_YCAlertDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YCAlertDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		42F9C55F23418194003E7C8A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3417A85280B4ADF86F1F64FF /* Pods_YCAlertDemo.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0DCF1CCE08F54744069F8E30 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				350DA1FAA06A93116B5E256C /* Pods-YCAlertDemo.debug.xcconfig */,
+				775E8B691DD872A5AD651F9C /* Pods-YCAlertDemo.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		2785B0EC8CAECEE3C559B9CB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				88255DED5B0EE4E52A408DB3 /* Pods_YCAlertDemo.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		42F9C55923418194003E7C8A = {
+			isa = PBXGroup;
+			children = (
+				42F9C56423418194003E7C8A /* YCAlertDemo */,
+				42F9C56323418194003E7C8A /* Products */,
+				0DCF1CCE08F54744069F8E30 /* Pods */,
+				2785B0EC8CAECEE3C559B9CB /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		42F9C56323418194003E7C8A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				42F9C56223418194003E7C8A /* YCAlertDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		42F9C56423418194003E7C8A /* YCAlertDemo */ = {
+			isa = PBXGroup;
+			children = (
+				42F9C5B623418736003E7C8A /* TestViews */,
+				42F9C5892341871A003E7C8A /* Librarys */,
+				42F9C56523418194003E7C8A /* AppDelegate.h */,
+				42F9C56623418194003E7C8A /* AppDelegate.m */,
+				42F9C56B23418194003E7C8A /* ViewController.h */,
+				42F9C56C23418194003E7C8A /* ViewController.m */,
+				42F9C58323418662003E7C8A /* AlertTableViewController.h */,
+				42F9C58423418662003E7C8A /* AlertTableViewController.m */,
+				42F9C58623418673003E7C8A /* ActionSheetTableViewController.h */,
+				42F9C58723418673003E7C8A /* ActionSheetTableViewController.m */,
+				42F9C56E23418194003E7C8A /* Main.storyboard */,
+				42F9C5D623418E68003E7C8A /* address.plist */,
+				42F9C57123418196003E7C8A /* Assets.xcassets */,
+				42F9C57323418196003E7C8A /* LaunchScreen.storyboard */,
+				42F9C57623418196003E7C8A /* Info.plist */,
+				42F9C57723418196003E7C8A /* main.m */,
+			);
+			path = YCAlertDemo;
+			sourceTree = "<group>";
+		};
+		42F9C5892341871A003E7C8A /* Librarys */ = {
+			isa = PBXGroup;
+			children = (
+				42F9C58A2341871A003E7C8A /* Masonry */,
+				42F9C5A42341871A003E7C8A /* SDAutoLayout */,
+			);
+			path = Librarys;
+			sourceTree = "<group>";
+		};
+		42F9C58A2341871A003E7C8A /* Masonry */ = {
+			isa = PBXGroup;
+			children = (
+				42F9C58B2341871A003E7C8A /* MASCompositeConstraint.h */,
+				42F9C58C2341871A003E7C8A /* NSLayoutConstraint+MASDebugAdditions.m */,
+				42F9C58D2341871A003E7C8A /* MASConstraint+Private.h */,
+				42F9C58E2341871A003E7C8A /* MASLayoutConstraint.h */,
+				42F9C58F2341871A003E7C8A /* NSArray+MASShorthandAdditions.h */,
+				42F9C5902341871A003E7C8A /* MASConstraintMaker.h */,
+				42F9C5912341871A003E7C8A /* View+MASAdditions.h */,
+				42F9C5922341871A003E7C8A /* NSArray+MASAdditions.h */,
+				42F9C5932341871A003E7C8A /* MASUtilities.h */,
+				42F9C5942341871A003E7C8A /* MASViewAttribute.h */,
+				42F9C5952341871A003E7C8A /* ViewController+MASAdditions.m */,
+				42F9C5962341871A003E7C8A /* MASViewConstraint.h */,
+				42F9C5972341871A003E7C8A /* MASConstraint.h */,
+				42F9C5982341871A003E7C8A /* NSLayoutConstraint+MASDebugAdditions.h */,
+				42F9C5992341871A003E7C8A /* MASCompositeConstraint.m */,
+				42F9C59A2341871A003E7C8A /* MASConstraintMaker.m */,
+				42F9C59B2341871A003E7C8A /* MASLayoutConstraint.m */,
+				42F9C59C2341871A003E7C8A /* NSArray+MASAdditions.m */,
+				42F9C59D2341871A003E7C8A /* View+MASAdditions.m */,
+				42F9C59E2341871A003E7C8A /* View+MASShorthandAdditions.h */,
+				42F9C59F2341871A003E7C8A /* Masonry.h */,
+				42F9C5A02341871A003E7C8A /* MASConstraint.m */,
+				42F9C5A12341871A003E7C8A /* ViewController+MASAdditions.h */,
+				42F9C5A22341871A003E7C8A /* MASViewConstraint.m */,
+				42F9C5A32341871A003E7C8A /* MASViewAttribute.m */,
+			);
+			path = Masonry;
+			sourceTree = "<group>";
+		};
+		42F9C5A42341871A003E7C8A /* SDAutoLayout */ = {
+			isa = PBXGroup;
+			children = (
+				42F9C5A52341871A003E7C8A /* UIView+SDAutoLayout.m */,
+				42F9C5A62341871A003E7C8A /* UITableView+SDAutoTableViewCellHeight.h */,
+				42F9C5A72341871A003E7C8A /* SDAutoLayout.h */,
+				42F9C5A82341871A003E7C8A /* UITableView+SDAutoTableViewCellHeight.m */,
+				42F9C5A92341871A003E7C8A /* UIView+SDAutoLayout.h */,
+			);
+			path = SDAutoLayout;
+			sourceTree = "<group>";
+		};
+		42F9C5B623418736003E7C8A /* TestViews */ = {
+			isa = PBXGroup;
+			children = (
+				42F9C5B723418751003E7C8A /* NibView.h */,
+				42F9C5B823418751003E7C8A /* NibView.m */,
+				42F9C5BC23418771003E7C8A /* NibView.xib */,
+				42F9C5C1234187B2003E7C8A /* SelectedListModel.h */,
+				42F9C5C2234187B2003E7C8A /* SelectedListModel.m */,
+				42F9C5BE2341879F003E7C8A /* SelectedListView.h */,
+				42F9C5BF2341879F003E7C8A /* SelectedListView.m */,
+				42F9C5C42341880E003E7C8A /* FontSizeView.h */,
+				42F9C5C52341880E003E7C8A /* FontSizeView.m */,
+				42F9C5C723418862003E7C8A /* SignFinishView.h */,
+				42F9C5C823418862003E7C8A /* SignFinishView.m */,
+				42F9C5CA23418897003E7C8A /* OpenPushView.h */,
+				42F9C5CB23418897003E7C8A /* OpenPushView.m */,
+				42F9C5CD234188E1003E7C8A /* ShareButton.h */,
+				42F9C5CE234188E1003E7C8A /* ShareButton.m */,
+				42F9C5D02341890C003E7C8A /* AllShareView.h */,
+				42F9C5D12341890C003E7C8A /* AllShareView.m */,
+				42F9C5D3234189CE003E7C8A /* ShareView.h */,
+				42F9C5D4234189CE003E7C8A /* ShareView.m */,
+			);
+			path = TestViews;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		42F9C56123418194003E7C8A /* YCAlertDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 42F9C57B23418196003E7C8A /* Build configuration list for PBXNativeTarget "YCAlertDemo" */;
+			buildPhases = (
+				B9B36AE158C7D38EC9EFA0FB /* [CP] Check Pods Manifest.lock */,
+				42F9C55E23418194003E7C8A /* Sources */,
+				42F9C55F23418194003E7C8A /* Frameworks */,
+				42F9C56023418194003E7C8A /* Resources */,
+				8867E659A0D0F6919FBC2D74 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = YCAlertDemo;
+			productName = YCAlertDemo;
+			productReference = 42F9C56223418194003E7C8A /* YCAlertDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		42F9C55A23418194003E7C8A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1100;
+				ORGANIZATIONNAME = Codyy.XYY;
+				TargetAttributes = {
+					42F9C56123418194003E7C8A = {
+						CreatedOnToolsVersion = 11.0;
+					};
+				};
+			};
+			buildConfigurationList = 42F9C55D23418194003E7C8A /* Build configuration list for PBXProject "YCAlertDemo" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 42F9C55923418194003E7C8A;
+			productRefGroup = 42F9C56323418194003E7C8A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				42F9C56123418194003E7C8A /* YCAlertDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		42F9C56023418194003E7C8A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				42F9C5BD23418771003E7C8A /* NibView.xib in Resources */,
+				42F9C5D723418E68003E7C8A /* address.plist in Resources */,
+				42F9C57523418196003E7C8A /* LaunchScreen.storyboard in Resources */,
+				42F9C57223418196003E7C8A /* Assets.xcassets in Resources */,
+				42F9C57023418194003E7C8A /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8867E659A0D0F6919FBC2D74 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-YCAlertDemo/Pods-YCAlertDemo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-YCAlertDemo/Pods-YCAlertDemo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-YCAlertDemo/Pods-YCAlertDemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B9B36AE158C7D38EC9EFA0FB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-YCAlertDemo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		42F9C55E23418194003E7C8A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				42F9C5B22341871A003E7C8A /* MASViewConstraint.m in Sources */,
+				42F9C5AD2341871A003E7C8A /* MASConstraintMaker.m in Sources */,
+				42F9C56D23418194003E7C8A /* ViewController.m in Sources */,
+				42F9C5AB2341871A003E7C8A /* ViewController+MASAdditions.m in Sources */,
+				42F9C5B42341871A003E7C8A /* UIView+SDAutoLayout.m in Sources */,
+				42F9C5AA2341871A003E7C8A /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
+				42F9C5AC2341871A003E7C8A /* MASCompositeConstraint.m in Sources */,
+				42F9C5C62341880E003E7C8A /* FontSizeView.m in Sources */,
+				42F9C5B923418751003E7C8A /* NibView.m in Sources */,
+				42F9C5D5234189CE003E7C8A /* ShareView.m in Sources */,
+				42F9C5D22341890C003E7C8A /* AllShareView.m in Sources */,
+				42F9C5C02341879F003E7C8A /* SelectedListView.m in Sources */,
+				42F9C56723418194003E7C8A /* AppDelegate.m in Sources */,
+				42F9C5AE2341871A003E7C8A /* MASLayoutConstraint.m in Sources */,
+				42F9C5CF234188E1003E7C8A /* ShareButton.m in Sources */,
+				42F9C5B02341871A003E7C8A /* View+MASAdditions.m in Sources */,
+				42F9C5AF2341871A003E7C8A /* NSArray+MASAdditions.m in Sources */,
+				42F9C57823418196003E7C8A /* main.m in Sources */,
+				42F9C5C3234187B2003E7C8A /* SelectedListModel.m in Sources */,
+				42F9C58823418673003E7C8A /* ActionSheetTableViewController.m in Sources */,
+				42F9C5B32341871A003E7C8A /* MASViewAttribute.m in Sources */,
+				42F9C5B12341871A003E7C8A /* MASConstraint.m in Sources */,
+				42F9C5C923418862003E7C8A /* SignFinishView.m in Sources */,
+				42F9C5B52341871A003E7C8A /* UITableView+SDAutoTableViewCellHeight.m in Sources */,
+				42F9C5CC23418897003E7C8A /* OpenPushView.m in Sources */,
+				42F9C58523418662003E7C8A /* AlertTableViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		42F9C56E23418194003E7C8A /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				42F9C56F23418194003E7C8A /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		42F9C57323418196003E7C8A /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				42F9C57423418196003E7C8A /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		42F9C57923418196003E7C8A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		42F9C57A23418196003E7C8A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		42F9C57C23418196003E7C8A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 350DA1FAA06A93116B5E256C /* Pods-YCAlertDemo.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = C9ANJ7EAW8;
+				INFOPLIST_FILE = YCAlertDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.codyy.YCAlertDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		42F9C57D23418196003E7C8A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 775E8B691DD872A5AD651F9C /* Pods-YCAlertDemo.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = C9ANJ7EAW8;
+				INFOPLIST_FILE = YCAlertDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.codyy.YCAlertDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		42F9C55D23418194003E7C8A /* Build configuration list for PBXProject "YCAlertDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				42F9C57923418196003E7C8A /* Debug */,
+				42F9C57A23418196003E7C8A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		42F9C57B23418196003E7C8A /* Build configuration list for PBXNativeTarget "YCAlertDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				42F9C57C23418196003E7C8A /* Debug */,
+				42F9C57D23418196003E7C8A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 42F9C55A23418194003E7C8A /* Project object */;
+}

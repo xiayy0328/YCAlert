@@ -1,0 +1,16 @@
+PODS:
+  - YCAlert (1.0.0)
+
+DEPENDENCIES:
+  - YCAlert (from `../`)
+
+EXTERNAL SOURCES:
+  YCAlert:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  YCAlert: 5bd81d4e9f50008830c908ca10b276867be17a94
+
+PODFILE CHECKSUM: 05b71c1f53fcc22d1cbde78e9a1d44d84a5b2869
+
+COCOAPODS: 1.8.0
