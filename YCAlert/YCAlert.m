@@ -77,7 +77,7 @@ typedef NS_ENUM(NSInteger, YCBackgroundStyle) {
 @property (nonatomic , assign ) UIStatusBarStyle modelStatusBarStyle;
 @property (nonatomic , assign ) UIBlurEffectStyle modelBackgroundBlurEffectStyle;
 @property (nonatomic , assign ) UIInterfaceOrientationMask modelSupportedInterfaceOrientations;
-@property (nonatomic , assign ) UIUserInterfaceStyle modelUserInterfaceStyle API_AVAILABLE(ios(13.0), tvos(13.0));
+@property (nonatomic , assign ) UIUserInterfaceStyle modelUserInterfaceStyle API_AVAILABLE(ios(13.0));
 
 @property (nonatomic , assign ) CornerRadii modelCornerRadii;
 @property (nonatomic , assign ) CornerRadii modelActionSheetHeaderCornerRadii;
@@ -275,7 +275,7 @@ typedef NS_ENUM(NSInteger, YCBackgroundStyle) {
             
             action.title = title;
             
-            action.titleColor = [UIColor redColor];
+            action.titleColor = [UIColor systemRedColor];
             
             action.clickBlock = block;
         });
@@ -2167,9 +2167,7 @@ CGPathRef _Nullable YCCGPathCreateWithRoundedRect(CGRect bounds, CornerRadii cor
         CGFloat buttonAHeight = CGRectGetHeight(buttonA.frame) + buttonAInsets.top + buttonAInsets.bottom;
         
         CGFloat buttonBHeight = CGRectGetHeight(buttonB.frame) + buttonBInsets.top + buttonBInsets.bottom;
-        
-        //CGFloat maxHeight = buttonAHeight > buttonBHeight ? buttonAHeight : buttonBHeight;
-        
+                
         CGFloat minHeight = buttonAHeight < buttonBHeight ? buttonAHeight : buttonBHeight;
         
         CGFloat minY = (buttonA.frame.origin.y - buttonAInsets.top) > (buttonB.frame.origin.y - buttonBInsets.top) ? (buttonB.frame.origin.y - buttonBInsets.top) : (buttonA.frame.origin.y - buttonAInsets.top);

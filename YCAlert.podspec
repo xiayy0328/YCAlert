@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "YCAlert"
-  spec.version      = "1.0.0"
+  spec.version      = "1.1.0"
   spec.summary      = "实现类似系统的UIAlertView、UIActionSheet高级管理,方便自定义弹窗和底部弹出视图"
 
   # This description is used to generate tags and improve search results.
