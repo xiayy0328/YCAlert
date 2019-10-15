@@ -28,13 +28,12 @@ typedef NS_ENUM(NSInteger, YCBackgroundStyle) {
     YCBackgroundStyleTranslucent,
 };
 
-@interface YCAlertConfigModel ()
+@interface YCBaseConfigModel ()
 
 @property (nonatomic , strong ) NSMutableArray *modelActionArray;
 @property (nonatomic , strong ) NSMutableArray *modelItemArray;
 @property (nonatomic , strong ) NSMutableDictionary *modelItemInsetsInfo;
 
-@property (nonatomic , assign ) CGFloat modelCornerRadius;
 @property (nonatomic , assign ) CGFloat modelShadowOpacity;
 @property (nonatomic , assign ) CGFloat modelShadowRadius;
 @property (nonatomic , assign ) CGFloat modelOpenAnimationDuration;
@@ -75,11 +74,14 @@ typedef NS_ENUM(NSInteger, YCBackgroundStyle) {
 @property (nonatomic , assign ) YCAnimationStyle modelOpenAnimationStyle;
 @property (nonatomic , assign ) YCAnimationStyle modelCloseAnimationStyle;
 
-@property (nonatomic , assign ) CornerRadii modelCornerRadii;
-
 @property (nonatomic , assign ) UIStatusBarStyle modelStatusBarStyle;
 @property (nonatomic , assign ) UIBlurEffectStyle modelBackgroundBlurEffectStyle;
 @property (nonatomic , assign ) UIInterfaceOrientationMask modelSupportedInterfaceOrientations;
+@property (nonatomic , assign ) UIUserInterfaceStyle modelUserInterfaceStyle API_AVAILABLE(ios(13.0), tvos(13.0));
+
+@property (nonatomic , assign ) CornerRadii modelCornerRadii;
+@property (nonatomic , assign ) CornerRadii modelActionSheetHeaderCornerRadii;
+@property (nonatomic , assign ) CornerRadii modelActionSheetCancelActionCornerRadii;
 
 @property (nonatomic , strong ) UIColor *modelActionSheetBackgroundColor;
 @property (nonatomic , strong ) UIColor *modelActionSheetCancelActionSpaceColor;
@@ -88,7 +90,7 @@ typedef NS_ENUM(NSInteger, YCBackgroundStyle) {
 
 @end
 
-@implementation YCAlertConfigModel
+@implementation YCBaseConfigModel
 
 - (void)dealloc{
     
@@ -103,8 +105,6 @@ typedef NS_ENUM(NSInteger, YCBackgroundStyle) {
     if (self) {
         
         // 初始化默认值
-        
-        _modelCornerRadius = 13.0f; //默认圆角半径
         _modelShadowOpacity = 0.3f; //默认阴影不透明度
         _modelShadowRadius = 5.0f; //默认阴影半径
         _modelShadowOffset = CGSizeMake(0.0f, 2.0f); //默认阴影偏移
@@ -122,7 +122,12 @@ typedef NS_ENUM(NSInteger, YCBackgroundStyle) {
         _modelActionSheetBottomMargin = 10.0f; //默认actionsheet距离屏幕底部距离
         
         _modelShadowColor = [UIColor blackColor]; //默认阴影颜色
-        _modelHeaderColor = [UIColor whiteColor]; //默认颜色
+        if (@available(iOS 13.0, *)) {
+            _modelHeaderColor = [UIColor tertiarySystemBackgroundColor]; //默认颜色
+            
+        } else {
+            _modelHeaderColor = [UIColor whiteColor]; //默认颜色
+        }
         _modelBackgroundColor = [UIColor blackColor]; //默认背景半透明颜色
         
         _modelIsClickBackgroundClose = NO; //默认点击背景不关闭
@@ -133,10 +138,17 @@ typedef NS_ENUM(NSInteger, YCBackgroundStyle) {
         _modelIsScrollEnabled = YES; //默认可以滑动
         
         _modelBackgroundStyle = YCBackgroundStyleTranslucent; //默认为半透明背景样式
-        
-        _modelCornerRadii = CornerRadiiNull();  //默认为空 使用_modelCornerRadius
         _modelBackgroundBlurEffectStyle = UIBlurEffectStyleDark; //默认模糊效果类型Dark
         _modelSupportedInterfaceOrientations = UIInterfaceOrientationMaskAll; //默认支持所有方向
+        
+        
+        _modelCornerRadii = CornerRadiiMake(13.0f, 13.0f, 13.0f, 13.0f); //默认圆角半径
+        _modelActionSheetHeaderCornerRadii = CornerRadiiMake(13.0f, 13.0f, 13.0f, 13.0f); //默认圆角半径
+        _modelActionSheetCancelActionCornerRadii = CornerRadiiMake(13.0f, 13.0f, 13.0f, 13.0f); //默认圆角半径
+        
+        if (@available(iOS 13.0, *)) {
+            _modelUserInterfaceStyle = UIUserInterfaceStyleUnspecified; //默认支持全部样式
+        }
         
         __weak typeof(self) weakSelf = self;
         
@@ -443,7 +455,7 @@ typedef NS_ENUM(NSInteger, YCBackgroundStyle) {
     
     return ^(CGFloat number){
         
-        self.modelCornerRadius = number;
+        self.modelCornerRadii = CornerRadiiMake(number, number, number, number);
         
         return self;
     };
@@ -750,7 +762,66 @@ typedef NS_ENUM(NSInteger, YCBackgroundStyle) {
     
 }
 
-#pragma mark Alert Config
+
+- (YCConfigToBlockReturnBool)YcShouldClose{
+
+    return ^(BOOL (^block)(void)){
+
+        self.modelShouldClose = block;
+
+        return self;
+    };
+
+}
+
+- (YCConfigToBlockIntegerReturnBool)YcShouldActionClickClose{
+
+    return ^(BOOL (^block)(NSInteger index)){
+
+        self.modelShouldActionClickClose = block;
+
+        return self;
+    };
+
+}
+
+- (YCConfigToBlock)YcCloseComplete{
+
+    return ^(void (^block)(void)){
+
+        self.modelCloseComplete = block;
+
+        return self;
+    };
+
+}
+
+#pragma mark LazyLoading
+
+- (NSMutableArray *)modelActionArray{
+    
+    if (!_modelActionArray) _modelActionArray = [NSMutableArray array];
+    
+    return _modelActionArray;
+}
+
+- (NSMutableArray *)modelItemArray{
+    
+    if (!_modelItemArray) _modelItemArray = [NSMutableArray array];
+    
+    return _modelItemArray;
+}
+
+- (NSMutableDictionary *)modelItemInsetsInfo{
+    
+    if (!_modelItemInsetsInfo) _modelItemInsetsInfo = [NSMutableDictionary dictionary];
+    
+    return _modelItemInsetsInfo;
+}
+
+@end
+
+@implementation YCBaseConfigModel (Alert)
 
 - (YCConfigToConfigTextField)YcAddTextField{
     
@@ -791,7 +862,9 @@ typedef NS_ENUM(NSInteger, YCBackgroundStyle) {
     
 }
 
-#pragma mark ActionSheet Config
+@end
+
+@implementation YCBaseConfigModel (ActionSheet)
 
 - (YCConfigToFloat)YcActionSheetCancelActionSpaceWidth{
     
@@ -837,63 +910,31 @@ typedef NS_ENUM(NSInteger, YCBackgroundStyle) {
     
 }
 
-- (YCConfigToBlockReturnBool)YcShouldClose{
+- (YCConfigToCornerRadii)YcActionSheetHeaderCornerRadii{
     
-    return ^(BOOL (^block)(void)){
+    return ^(CornerRadii radii){
         
-        self.modelShouldClose = block;
-        
-        return self;
-    };
-    
-}
-
-- (YCConfigToBlockIntegerReturnBool)YcShouldActionClickClose{
-    
-    return ^(BOOL (^block)(NSInteger index)){
-        
-        self.modelShouldActionClickClose = block;
+        self.modelActionSheetHeaderCornerRadii = radii;
         
         return self;
     };
     
 }
 
-- (YCConfigToBlock)YcCloseComplete{
+- (YCConfigToCornerRadii)YcActionSheetCancelActionCornerRadii{
     
-    return ^(void (^block)(void)){
+    return ^(CornerRadii radii){
         
-        self.modelCloseComplete = block;
+        self.modelActionSheetCancelActionCornerRadii = radii;
         
         return self;
     };
     
 }
 
-#pragma mark LazyLoading
-
-- (NSMutableArray *)modelActionArray{
-    
-    if (!_modelActionArray) _modelActionArray = [NSMutableArray array];
-    
-    return _modelActionArray;
-}
-
-- (NSMutableArray *)modelItemArray{
-    
-    if (!_modelItemArray) _modelItemArray = [NSMutableArray array];
-    
-    return _modelItemArray;
-}
-
-- (NSMutableDictionary *)modelItemInsetsInfo{
-    
-    if (!_modelItemInsetsInfo) _modelItemInsetsInfo = [NSMutableDictionary dictionary];
-    
-    return _modelItemInsetsInfo;
-}
 
 @end
+
 
 @interface YCAlert ()
 
@@ -901,7 +942,7 @@ typedef NS_ENUM(NSInteger, YCBackgroundStyle) {
 
 @property (nonatomic , strong ) YCAlertWindow *ycWindow;
 
-@property (nonatomic , strong ) NSMutableArray <YCAlertConfig *>*queueArray;
+@property (nonatomic , strong ) NSMutableArray <YCBaseConfig *>*queueArray;
 
 @property (nonatomic , strong ) YCBaseViewController *viewController;
 
@@ -929,22 +970,12 @@ typedef NS_ENUM(NSInteger, YCBackgroundStyle) {
 
 + (YCAlertConfig *)alert{
     
-    YCAlertConfig *config = [[YCAlertConfig alloc] init];
-    
-    config.type = YCAlertTypeAlert;
-    
-    return config;
+    return [[YCAlertConfig alloc] init];
 }
 
-+ (YCAlertConfig *)actionsheet{
++ (YCActionSheetConfig *)actionsheet{
     
-    YCAlertConfig *config = [[YCAlertConfig alloc] init];
-    
-    config.type = YCAlertTypeActionSheet;
-    
-    config.config.YcClickBackgroundClose(YES);
-    
-    return config;
+    return [[YCActionSheetConfig alloc] init];
 }
 
 + (YCAlertWindow *)getAlertWindow{
@@ -967,6 +998,15 @@ typedef NS_ENUM(NSInteger, YCBackgroundStyle) {
     [[YCAlert shareManager].queueArray removeAllObjects];
 }
 
++ (BOOL)containsQueueWithIdentifier:(NSString *)identifier {
+    for (YCBaseConfig *config in [YCAlert shareManager].queueArray) {
+        if ([config.config.modelIdentifier isEqualToString:identifier]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
 + (void)closeWithIdentifier:(NSString *)identifier completionBlock:(void (^ _Nullable)(void))completionBlock{
     [self closeWithIdentifier:identifier force:NO completionBlock:completionBlock];
 }
@@ -983,9 +1023,9 @@ typedef NS_ENUM(NSInteger, YCBackgroundStyle) {
         
         for (NSUInteger i = 0; i < count; i++) {
             
-            YCAlertConfig *config = [YCAlert shareManager].queueArray[i];
+            YCBaseConfig *config = [YCAlert shareManager].queueArray[i];
             
-            YCAlertConfigModel *model = config.config;
+            YCBaseConfigModel *model = config.config;
             
             if (model.modelIdentifier != nil && [identifier isEqualToString: model.modelIdentifier]) {
                 
@@ -1020,7 +1060,7 @@ typedef NS_ENUM(NSInteger, YCBackgroundStyle) {
     
     if ([YCAlert shareManager].queueArray.count) {
         
-        YCAlertConfig *item = [YCAlert shareManager].queueArray.lastObject;
+        YCBaseConfig *item = [YCAlert shareManager].queueArray.lastObject;
         
         if ([item respondsToSelector:@selector(closeWithCompletionBlock:)]) [item performSelector:@selector(closeWithCompletionBlock:) withObject:completionBlock];
     }
@@ -1029,7 +1069,7 @@ typedef NS_ENUM(NSInteger, YCBackgroundStyle) {
 
 #pragma mark LazyLoading
 
-- (NSMutableArray <YCAlertConfig *>*)queueArray{
+- (NSMutableArray <YCBaseConfig *>*)queueArray{
     
     if (!_queueArray) _queueArray = [NSMutableArray array];
     
@@ -1055,6 +1095,167 @@ typedef NS_ENUM(NSInteger, YCBackgroundStyle) {
 }
 
 @end
+
+
+@implementation UIView (YCAlertExtension)
+
+CornerRadii CornerRadiiMake(CGFloat topLeft, CGFloat topRight, CGFloat bottomLeft, CGFloat bottomRight) {
+    return (CornerRadii){
+        topLeft,
+        topRight,
+        bottomLeft,
+        bottomRight,
+    };
+}
+
+CornerRadii CornerRadiiZero() {
+    return (CornerRadii){0, 0, 0, 0};
+}
+
+CornerRadii CornerRadiiNull() {
+    return (CornerRadii){-1, -1, -1, -1};
+}
+
+BOOL CornerRadiiEqualTo(CornerRadii lhs, CornerRadii rhs) {
+    return lhs.topLeft == rhs.topRight
+    && lhs.topRight == rhs.topRight
+    && lhs.bottomLeft == rhs.bottomLeft
+    && lhs.bottomRight == lhs.bottomRight;
+}
+
+// 切圆角函数
+CGPathRef _Nullable YCCGPathCreateWithRoundedRect(CGRect bounds, CornerRadii cornerRadii) {
+    const CGFloat minX = CGRectGetMinX(bounds);
+    const CGFloat minY = CGRectGetMinY(bounds);
+    const CGFloat maxX = CGRectGetMaxX(bounds);
+    const CGFloat maxY = CGRectGetMaxY(bounds);
+    
+    const CGFloat topLeftCenterX = minX +  cornerRadii.topLeft;
+    const CGFloat topLeftCenterY = minY + cornerRadii.topLeft;
+    
+    const CGFloat topRightCenterX = maxX - cornerRadii.topRight;
+    const CGFloat topRightCenterY = minY + cornerRadii.topRight;
+    
+    const CGFloat bottomLeftCenterX = minX +  cornerRadii.bottomLeft;
+    const CGFloat bottomLeftCenterY = maxY - cornerRadii.bottomLeft;
+    
+    const CGFloat bottomRightCenterX = maxX -  cornerRadii.bottomRight;
+    const CGFloat bottomRightCenterY = maxY - cornerRadii.bottomRight;
+    // 虽然顺时针参数是YES，在iOS中的UIView中，这里实际是逆时针
+    
+    CGMutablePathRef path = CGPathCreateMutable();
+    // 顶 左
+    CGPathAddArc(path, NULL, topLeftCenterX, topLeftCenterY,cornerRadii.topLeft, M_PI, 3 * M_PI_2, NO);
+    // 顶 右
+    CGPathAddArc(path, NULL, topRightCenterX , topRightCenterY, cornerRadii.topRight, 3 * M_PI_2, 0, NO);
+    // 底 右
+    CGPathAddArc(path, NULL, bottomRightCenterX, bottomRightCenterY, cornerRadii.bottomRight, 0, M_PI_2, NO);
+    // 底 左
+    CGPathAddArc(path, NULL, bottomLeftCenterX, bottomLeftCenterY, cornerRadii.bottomLeft, M_PI_2,M_PI, NO);
+    CGPathCloseSubpath(path);
+    return path;
+}
+
++ (void)load{
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        
+        NSArray *selStringsArray = @[@"layoutSubviews"];
+        
+        [selStringsArray enumerateObjectsUsingBlock:^(NSString *selString, NSUInteger idx, BOOL *stop) {
+            
+            NSString *leeSelString = [@"yc_alert_" stringByAppendingString:selString];
+            
+            Method originalMethod = class_getInstanceMethod(self, NSSelectorFromString(selString));
+            
+            Method leeMethod = class_getInstanceMethod(self, NSSelectorFromString(leeSelString));
+            
+            BOOL isAddedMethod = class_addMethod(self, NSSelectorFromString(selString), method_getImplementation(leeMethod), method_getTypeEncoding(leeMethod));
+            
+            if (isAddedMethod) {
+                
+                class_replaceMethod(self, NSSelectorFromString(leeSelString), method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod));
+                
+            } else {
+                
+                method_exchangeImplementations(originalMethod, leeMethod);
+            }
+            
+        }];
+        
+    });
+    
+}
+
+- (void)updateCornerRadii{
+    
+    if (!CornerRadiiEqualTo([self yc_alert_cornerRadii], CornerRadiiNull())) {
+        
+        CAShapeLayer *lastLayer = (CAShapeLayer *)self.layer.mask;
+        CGPathRef lastPath = lastLayer.path ? lastLayer.path : CGPathCreateMutable();
+        CGPathRef path = YCCGPathCreateWithRoundedRect(self.bounds, [self yc_alert_cornerRadii]);
+        
+        // 防止相同路径多次设置
+        if (!CGPathEqualToPath(lastPath, path)) {
+            // 移除原有路径动画
+            [lastLayer removeAnimationForKey:@"path"];
+            // 重置新路径mask
+            CAShapeLayer *maskLayer = [CAShapeLayer layer];
+            maskLayer.path = path;
+            self.layer.mask = maskLayer;
+            // 同步视图大小变更动画
+            CAAnimation *temp = [self.layer animationForKey:@"bounds.size"];
+            if (temp) {
+                CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
+                animation.duration = temp.duration;
+                animation.fillMode = temp.fillMode;
+                animation.timingFunction = temp.timingFunction;
+                animation.fromValue = (__bridge id _Nullable)(lastPath);
+                animation.toValue = (__bridge id _Nullable)(path);
+                [maskLayer addAnimation:animation forKey:@"path"];
+            }
+            
+        }
+        
+    }
+    
+}
+
+- (void)yc_alert_layoutSubviews{
+    
+    [self yc_alert_layoutSubviews];
+    
+    [self updateCornerRadii];
+}
+
+- (CornerRadii)yc_alert_cornerRadii{
+    
+    NSValue *value = objc_getAssociatedObject(self, _cmd);
+    
+    CornerRadii cornerRadii;
+    
+    if (value) {
+        
+        [value getValue:&cornerRadii];
+    
+    } else {
+    
+        cornerRadii = CornerRadiiNull();
+    }
+    
+    return cornerRadii;
+}
+
+- (void)setYc_alert_cornerRadii:(CornerRadii)cornerRadii{
+    
+    NSValue *value = [NSValue valueWithBytes:&cornerRadii objCType:@encode(CornerRadii)];
+    
+    objc_setAssociatedObject(self, @selector(yc_alert_cornerRadii), value , OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+@end
+
 
 @implementation YCAlertWindow
 
@@ -1199,6 +1400,12 @@ typedef NS_ENUM(NSInteger, YCBackgroundStyle) {
 
 @implementation YCActionButton
 
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+    /// 刷新Action设置
+    self.action = self.action;
+}
+
 + (YCActionButton *)button{
     
     return [YCActionButton buttonWithType:UIButtonTypeCustom];;
@@ -1315,6 +1522,8 @@ typedef NS_ENUM(NSInteger, YCBackgroundStyle) {
     
     [super layoutSubviews];
     
+    [self updateCornerRadii];
+    
     if (_topLayer) _topLayer.frame = CGRectMake(0, 0, self.frame.size.width, self.borderWidth);
     
     if (_bottomLayer) _bottomLayer.frame = CGRectMake(0, self.frame.size.height - self.borderWidth, self.frame.size.width, self.borderWidth);
@@ -1325,22 +1534,22 @@ typedef NS_ENUM(NSInteger, YCBackgroundStyle) {
 }
 
 - (void)addTopBorder{
-    
+    [self removeTopBorder];
     [self.layer addSublayer:self.topLayer];
 }
 
 - (void)addBottomBorder{
-    
+    [self removeBottomBorder];
     [self.layer addSublayer:self.bottomLayer];
 }
 
 - (void)addLeftBorder{
-    
+    [self removeLeftBorder];
     [self.layer addSublayer:self.leftLayer];
 }
 
 - (void)addRightBorder{
-    
+    [self removeRightBorder];
     [self.layer addSublayer:self.rightLayer];
 }
 
@@ -1564,169 +1773,9 @@ typedef NS_ENUM(NSInteger, YCBackgroundStyle) {
 
 @end
 
-@interface UIView (YCAlertExtension)
-
-@property (nonatomic , assign ) CornerRadii yc_alert_cornerRadii;
-
-@end
-
-@implementation UIView (YCAlertExtension)
-
-CornerRadii CornerRadiiMake(CGFloat topLeft, CGFloat topRight, CGFloat bottomLeft, CGFloat bottomRight) {
-    return (CornerRadii){
-        topLeft,
-        topRight,
-        bottomLeft,
-        bottomRight,
-    };
-}
-
-CornerRadii CornerRadiiZero() {
-    return (CornerRadii){0, 0, 0, 0};
-}
-
-CornerRadii CornerRadiiNull() {
-    return (CornerRadii){-1, -1, -1, -1};
-}
-
-BOOL CornerRadiiEqualTo(CornerRadii lhs, CornerRadii rhs) {
-    return lhs.topLeft == rhs.topRight
-    && lhs.topRight == rhs.topRight
-    && lhs.bottomLeft == rhs.bottomLeft
-    && lhs.bottomRight == lhs.bottomRight;
-}
-
-// 切圆角函数
-CGPathRef _Nullable YCCGPathCreateWithRoundedRect(CGRect bounds, CornerRadii cornerRadii) {
-    const CGFloat minX = CGRectGetMinX(bounds);
-    const CGFloat minY = CGRectGetMinY(bounds);
-    const CGFloat maxX = CGRectGetMaxX(bounds);
-    const CGFloat maxY = CGRectGetMaxY(bounds);
-    
-    const CGFloat topLeftCenterX = minX +  cornerRadii.topLeft;
-    const CGFloat topLeftCenterY = minY + cornerRadii.topLeft;
-    
-    const CGFloat topRightCenterX = maxX - cornerRadii.topRight;
-    const CGFloat topRightCenterY = minY + cornerRadii.topRight;
-    
-    const CGFloat bottomLeftCenterX = minX +  cornerRadii.bottomLeft;
-    const CGFloat bottomLeftCenterY = maxY - cornerRadii.bottomLeft;
-    
-    const CGFloat bottomRightCenterX = maxX -  cornerRadii.bottomRight;
-    const CGFloat bottomRightCenterY = maxY - cornerRadii.bottomRight;
-    // 虽然顺时针参数是YES，在iOS中的UIView中，这里实际是逆时针
-    
-    CGMutablePathRef path = CGPathCreateMutable();
-    // 顶 左
-    CGPathAddArc(path, NULL, topLeftCenterX, topLeftCenterY,cornerRadii.topLeft, M_PI, 3 * M_PI_2, NO);
-    // 顶 右
-    CGPathAddArc(path, NULL, topRightCenterX , topRightCenterY, cornerRadii.topRight, 3 * M_PI_2, 0, NO);
-    // 底 右
-    CGPathAddArc(path, NULL, bottomRightCenterX, bottomRightCenterY, cornerRadii.bottomRight,0, M_PI_2, NO);
-    // 底 左
-    CGPathAddArc(path, NULL, bottomLeftCenterX, bottomLeftCenterY, cornerRadii.bottomLeft, M_PI_2,M_PI, NO);
-    CGPathCloseSubpath(path);
-    return path;
-}
-
-+ (void)load{
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        
-        NSArray *selStringsArray = @[@"layoutSubviews"];
-        
-        [selStringsArray enumerateObjectsUsingBlock:^(NSString *selString, NSUInteger idx, BOOL *stop) {
-            
-            NSString *YCSelString = [@"yc_alert_" stringByAppendingString:selString];
-            
-            Method originalMethod = class_getInstanceMethod(self, NSSelectorFromString(selString));
-            
-            Method YCMethod = class_getInstanceMethod(self, NSSelectorFromString(YCSelString));
-            
-            BOOL isAddedMethod = class_addMethod(self, NSSelectorFromString(selString), method_getImplementation(YCMethod), method_getTypeEncoding(YCMethod));
-            
-            if (isAddedMethod) {
-                
-                class_replaceMethod(self, NSSelectorFromString(YCSelString), method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod));
-                
-            } else {
-                
-                method_exchangeImplementations(originalMethod, YCMethod);
-            }
-            
-        }];
-        
-    });
-    
-}
-
-- (void)yc_alert_layoutSubviews{
-    
-    [self yc_alert_layoutSubviews];
-    
-    if (!CornerRadiiEqualTo([self yc_alert_cornerRadii], CornerRadiiNull())) {
-        
-        CAShapeLayer *lastLayer = (CAShapeLayer *)self.layer.mask;
-        CGPathRef lastPath = lastLayer.path ? lastLayer.path : CGPathCreateMutable();
-        CGPathRef path = YCCGPathCreateWithRoundedRect(self.bounds, [self yc_alert_cornerRadii]);
-        
-        // 防止相同路径多次设置
-        if (!CGPathEqualToPath(lastPath, path)) {
-            // 移除原有路径动画
-            [lastLayer removeAnimationForKey:@"path"];
-            // 重置新路径mask
-            CAShapeLayer *maskLayer = [CAShapeLayer layer];
-            maskLayer.path = path;
-            self.layer.mask = maskLayer;
-            // 同步视图大小变更动画
-            CAAnimation *temp = [self.layer animationForKey:@"bounds.size"];
-            if (temp) {
-                CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"path"];
-                animation.duration = temp.duration;
-                animation.fillMode = temp.fillMode;
-                animation.timingFunction = temp.timingFunction;
-                animation.fromValue = (__bridge id _Nullable)(lastPath);
-                animation.toValue = (__bridge id _Nullable)(path);
-                [maskLayer addAnimation:animation forKey:@"path"];
-            }
-            
-        }
-        
-    }
-    
-}
-
-- (CornerRadii)yc_alert_cornerRadii{
-    
-    NSValue *value = objc_getAssociatedObject(self, _cmd);
-    
-    CornerRadii cornerRadii;
-    
-    if (value) {
-    
-        [value getValue:&cornerRadii];
-    
-    } else {
-    
-        cornerRadii = CornerRadiiNull();
-    }
-    
-    return cornerRadii;
-}
-
-- (void)setYc_alert_cornerRadii:(CornerRadii)cornerRadii{
-    
-    NSValue *value = [NSValue valueWithBytes:&cornerRadii objCType:@encode(CornerRadii)];
-    
-    objc_setAssociatedObject(self, @selector(yc_alert_cornerRadii), value , OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-@end
-
 @interface YCBaseViewController ()<UIGestureRecognizerDelegate>
 
-@property (nonatomic , strong ) YCAlertConfigModel *config;
+@property (nonatomic , strong ) YCBaseConfigModel *config;
 
 @property (nonatomic , strong ) UIWindow *currentKeyWindow;
 
@@ -2159,14 +2208,7 @@ CGPathRef _Nullable YCCGPathCreateWithRoundedRect(CGRect bounds, CornerRadii cor
     
     self.alertView.scrollEnabled = self.config.modelIsScrollEnabled;
     
-    if (!CornerRadiiEqualTo(self.config.modelCornerRadii, CornerRadiiNull())) {
-        
-        self.alertView.yc_alert_cornerRadii = self.config.modelCornerRadii;
-        
-    } else {
-        
-        self.alertView.layer.cornerRadius = self.config.modelCornerRadius;
-    }
+    self.alertView.yc_alert_cornerRadii = self.config.modelCornerRadii;
     
     [self.config.modelItemArray enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         
@@ -2196,7 +2238,13 @@ CGPathRef _Nullable YCCGPathCreateWithRoundedRect(CGRect bounds, CornerRadii cor
                 
                 label.font = [UIFont boldSystemFontOfSize:18.0f];
                 
-                label.textColor = [UIColor blackColor];
+                if (@available(iOS 13.0, *)) {
+                    label.textColor = [UIColor labelColor];
+                    
+                } else {
+                    label.textColor = [UIColor blackColor];
+                }
+                
                 
                 label.numberOfLines = 0;
                 
@@ -2225,7 +2273,12 @@ CGPathRef _Nullable YCCGPathCreateWithRoundedRect(CGRect bounds, CornerRadii cor
                 
                 label.font = [UIFont systemFontOfSize:14.0f];
                 
-                label.textColor = [UIColor blackColor];
+                if (@available(iOS 13.0, *)) {
+                    label.textColor = [UIColor labelColor];
+                    
+                } else {
+                    label.textColor = [UIColor blackColor];
+                }
                 
                 label.numberOfLines = 0;
                 
@@ -2299,13 +2352,34 @@ CGPathRef _Nullable YCCGPathCreateWithRoundedRect(CGRect bounds, CornerRadii cor
         
         if (!action.title) action.title = @"按钮";
         
-        if (!action.titleColor) action.titleColor = [UIColor colorWithRed:21/255.0f green:123/255.0f blue:245/255.0f alpha:1.0f];
+        if (!action.titleColor) {
+            if (@available(iOS 13.0, *)) {
+                action.titleColor = [UIColor systemBlueColor];
+                
+            } else {
+                action.titleColor = [UIColor colorWithRed:21/255.0f green:123/255.0f blue:245/255.0f alpha:1.0f];
+            }
+        }
         
         if (!action.backgroundColor) action.backgroundColor = self.config.modelHeaderColor;
         
-        if (!action.backgroundHighlightColor) action.backgroundHighlightColor = action.backgroundHighlightColor = [UIColor colorWithWhite:0.97 alpha:1.0f];
+        if (!action.backgroundHighlightColor) {
+            if (@available(iOS 13.0, *)) {
+                action.backgroundHighlightColor = [UIColor systemGray6Color];
+                
+            } else {
+                action.backgroundHighlightColor = [UIColor colorWithWhite:0.97 alpha:1.0f];
+            }
+        }
         
-        if (!action.borderColor) action.borderColor = [UIColor colorWithWhite:0.84 alpha:1.0f];
+        if (!action.borderColor) {
+            if (@available(iOS 13.0, *)) {
+                action.borderColor = [UIColor systemGray3Color];
+                
+            } else {
+                action.borderColor = [UIColor colorWithWhite:0.84 alpha:1.0f];
+            }
+        }
         
         if (!action.borderWidth) action.borderWidth = DEFAULTBORDERWIDTH;
         
@@ -2880,15 +2954,9 @@ CGPathRef _Nullable YCCGPathCreateWithRoundedRect(CGRect bounds, CornerRadii cor
     
     self.actionSheetView.scrollEnabled = self.config.modelIsScrollEnabled;
     
-    if (!CornerRadiiEqualTo(self.config.modelCornerRadii, CornerRadiiNull())) {
-        
-        self.containerView.yc_alert_cornerRadii = self.config.modelCornerRadii;
-        self.actionSheetView.yc_alert_cornerRadii = self.config.modelCornerRadii;
-        
-    } else {
-        self.containerView.layer.cornerRadius = self.config.modelCornerRadius;
-        self.actionSheetView.layer.cornerRadius = self.config.modelCornerRadius;
-    }
+    self.containerView.yc_alert_cornerRadii = self.config.modelCornerRadii;
+    
+    self.actionSheetView.yc_alert_cornerRadii = self.config.modelActionSheetHeaderCornerRadii;
     
     [self.config.modelItemArray enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         
@@ -2917,7 +2985,12 @@ CGPathRef _Nullable YCCGPathCreateWithRoundedRect(CGRect bounds, CornerRadii cor
                 
                 label.font = [UIFont boldSystemFontOfSize:16.0f];
                 
-                label.textColor = [UIColor darkGrayColor];
+                if (@available(iOS 13.0, *)) {
+                    label.textColor = [UIColor secondaryLabelColor];
+                    
+                } else {
+                    label.textColor = [UIColor darkGrayColor];
+                }
                 
                 label.numberOfLines = 0;
                 
@@ -2946,7 +3019,12 @@ CGPathRef _Nullable YCCGPathCreateWithRoundedRect(CGRect bounds, CornerRadii cor
                 
                 label.font = [UIFont systemFontOfSize:14.0f];
                 
-                label.textColor = [UIColor grayColor];
+                if (@available(iOS 13.0, *)) {
+                    label.textColor = [UIColor tertiaryLabelColor];
+                    
+                } else {
+                    label.textColor = [UIColor grayColor];
+                }
                 
                 label.numberOfLines = 0;
                 
@@ -2999,13 +3077,34 @@ CGPathRef _Nullable YCCGPathCreateWithRoundedRect(CGRect bounds, CornerRadii cor
         
         if (!action.title) action.title = @"按钮";
         
-        if (!action.titleColor) action.titleColor = [UIColor colorWithRed:21/255.0f green:123/255.0f blue:245/255.0f alpha:1.0f];
+        if (!action.titleColor) {
+            if (@available(iOS 13.0, *)) {
+                action.titleColor = [UIColor systemBlueColor];
+                
+            } else {
+                action.titleColor = [UIColor colorWithRed:21/255.0f green:123/255.0f blue:245/255.0f alpha:1.0f];
+            }
+        }
         
         if (!action.backgroundColor) action.backgroundColor = self.config.modelHeaderColor;
         
-        if (!action.backgroundHighlightColor) action.backgroundHighlightColor = action.backgroundHighlightColor = [UIColor colorWithWhite:0.97 alpha:1.0f];
+        if (!action.backgroundHighlightColor) {
+            if (@available(iOS 13.0, *)) {
+                action.backgroundHighlightColor = [UIColor systemGray6Color];
+                
+            } else {
+                action.backgroundHighlightColor = [UIColor colorWithWhite:0.97 alpha:1.0f];
+            }
+        }
         
-        if (!action.borderColor) action.borderColor = [UIColor colorWithWhite:0.86 alpha:1.0f];
+        if (!action.borderColor) {
+            if (@available(iOS 13.0, *)) {
+                action.borderColor = [UIColor systemGray3Color];
+                
+            } else {
+                action.borderColor = [UIColor colorWithWhite:0.84 alpha:1.0f];
+            }
+        }
         
         if (!action.borderWidth) action.borderWidth = DEFAULTBORDERWIDTH;
         
@@ -3017,9 +3116,9 @@ CGPathRef _Nullable YCCGPathCreateWithRoundedRect(CGRect bounds, CornerRadii cor
             case YCActionTypeCancel:
             {
                 [button addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
-                
-                button.layer.cornerRadius = self.config.modelCornerRadius;
-                
+                                
+                button.yc_alert_cornerRadii = self.config.modelActionSheetCancelActionCornerRadii;
+          
                 button.backgroundColor = action.backgroundColor;
                 
                 [self.containerView addSubview:button];
@@ -3370,11 +3469,13 @@ CGPathRef _Nullable YCCGPathCreateWithRoundedRect(CGRect bounds, CornerRadii cor
 
 @end
 
-@interface YCAlertConfig ()<YCAlertProtocol>
+@interface YCBaseConfig ()<YCAlertProtocol>
+
+- (void)show;
 
 @end
 
-@implementation YCAlertConfig
+@implementation YCBaseConfig
 
 - (void)dealloc{
     
@@ -3397,7 +3498,7 @@ CGPathRef _Nullable YCCGPathCreateWithRoundedRect(CGRect bounds, CornerRadii cor
             
             if ([YCAlert shareManager].queueArray.count) {
                 
-                YCAlertConfig *last = [YCAlert shareManager].queueArray.lastObject;
+                YCBaseConfig *last = [YCAlert shareManager].queueArray.lastObject;
                 
                 if (!strongSelf.config.modelIsQueue && last.config.modelQueuePriority > strongSelf.config.modelQueuePriority) return;
                 
@@ -3431,71 +3532,9 @@ CGPathRef _Nullable YCCGPathCreateWithRoundedRect(CGRect bounds, CornerRadii cor
     return self;
 }
 
-- (void)setType:(YCAlertType)type{
-    
-    _type = type;
-    
-    // 处理默认值
-    
-    switch (type) {
-            
-        case YCAlertTypeAlert:
-        
-            self.config
-            .YcConfigMaxWidth(^CGFloat(YCScreenOrientationType type) {
-            
-                return 280.0f;
-            })
-            .YcConfigMaxHeight(^CGFloat(YCScreenOrientationType type) {
-            
-                return SCREEN_HEIGHT - 40.0f - VIEWSAFEAREAINSETS([YCAlert getAlertWindow]).top - VIEWSAFEAREAINSETS([YCAlert getAlertWindow]).bottom;
-            })
-            .YcOpenAnimationStyle(YCAnimationStyleOrientationNone | YCAnimationStyleFade | YCAnimationStyleZoomEnlarge)
-            .YcCloseAnimationStyle(YCAnimationStyleOrientationNone | YCAnimationStyleFade | YCAnimationStyleZoomShrink);
-        
-            break;
-            
-        case YCAlertTypeActionSheet:
-            
-        self.config
-            .YcConfigMaxWidth(^CGFloat(YCScreenOrientationType type) {
-                
-                return type == YCScreenOrientationTypeHorizontal ? SCREEN_HEIGHT - VIEWSAFEAREAINSETS([YCAlert getAlertWindow]).top - VIEWSAFEAREAINSETS([YCAlert getAlertWindow]).bottom - 20.0f : SCREEN_WIDTH - VIEWSAFEAREAINSETS([YCAlert getAlertWindow]).left - VIEWSAFEAREAINSETS([YCAlert getAlertWindow]).right - 20.0f;
-            })
-            .YcConfigMaxHeight(^CGFloat(YCScreenOrientationType type) {
-                
-                return SCREEN_HEIGHT - 40.0f - VIEWSAFEAREAINSETS([YCAlert getAlertWindow]).top - VIEWSAFEAREAINSETS([YCAlert getAlertWindow]).bottom;
-            })
-            .YcOpenAnimationStyle(YCAnimationStyleOrientationBottom)
-            .YcCloseAnimationStyle(YCAnimationStyleOrientationBottom);
-            
-            break;
-            
-        default:
-            break;
-    }
-    
-}
+
 
 - (void)show{
-    
-    switch (self.type) {
-            
-        case YCAlertTypeAlert:
-        
-            [YCAlert shareManager].viewController = [[YCAlertViewController alloc] init];
-            
-            break;
-            
-        case YCAlertTypeActionSheet:
-        
-            [YCAlert shareManager].viewController = [[YCActionSheetViewController alloc] init];
-            
-            break;
-            
-        default:
-            break;
-    }
     
     if (![YCAlert shareManager].viewController) return;
     
@@ -3506,6 +3545,10 @@ CGPathRef _Nullable YCCGPathCreateWithRoundedRect(CGRect bounds, CornerRadii cor
     [YCAlert shareManager].ycWindow.windowLevel = self.config.modelWindowLevel;
     
     [YCAlert shareManager].ycWindow.hidden = NO;
+    
+    if (@available(iOS 13.0, *)) {
+        [YCAlert shareManager].ycWindow.overrideUserInterfaceStyle = self.config.modelUserInterfaceStyle;
+    }
     
     [[YCAlert shareManager].ycWindow makeKeyAndVisible];
     
@@ -3552,12 +3595,73 @@ CGPathRef _Nullable YCCGPathCreateWithRoundedRect(CGRect bounds, CornerRadii cor
 
 #pragma mark - LazyLoading
 
-- (YCAlertConfigModel *)config{
+- (YCBaseConfigModel *)config{
     
-    if (!_config) _config = [[YCAlertConfigModel alloc] init];
+    if (!_config) _config = [[YCBaseConfigModel alloc] init];
     
     return _config;
 }
 
 @end
 
+@implementation YCAlertConfig
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        
+        self.config
+        .YcConfigMaxWidth(^CGFloat(YCScreenOrientationType type) {
+            
+            return 280.0f;
+        })
+        .YcConfigMaxHeight(^CGFloat(YCScreenOrientationType type) {
+            
+            return SCREEN_HEIGHT - 40.0f - VIEWSAFEAREAINSETS([YCAlert getAlertWindow]).top - VIEWSAFEAREAINSETS([YCAlert getAlertWindow]).bottom;
+        })
+        .YcOpenAnimationStyle(YCAnimationStyleOrientationNone | YCAnimationStyleFade | YCAnimationStyleZoomEnlarge)
+        .YcCloseAnimationStyle(YCAnimationStyleOrientationNone | YCAnimationStyleFade | YCAnimationStyleZoomShrink);
+    }
+    return self;
+}
+
+- (void)show {
+    
+    [YCAlert shareManager].viewController = [[YCAlertViewController alloc] init];
+    
+    [super show];
+}
+
+@end
+
+@implementation YCActionSheetConfig
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.config
+        .YcConfigMaxWidth(^CGFloat(YCScreenOrientationType type) {
+            
+            return type == YCScreenOrientationTypeHorizontal ? SCREEN_HEIGHT - VIEWSAFEAREAINSETS([YCAlert getAlertWindow]).top - VIEWSAFEAREAINSETS([YCAlert getAlertWindow]).bottom - 20.0f : SCREEN_WIDTH - VIEWSAFEAREAINSETS([YCAlert getAlertWindow]).left - VIEWSAFEAREAINSETS([YCAlert getAlertWindow]).right - 20.0f;
+        })
+        .YcConfigMaxHeight(^CGFloat(YCScreenOrientationType type) {
+            
+            return SCREEN_HEIGHT - 40.0f - VIEWSAFEAREAINSETS([YCAlert getAlertWindow]).top - VIEWSAFEAREAINSETS([YCAlert getAlertWindow]).bottom;
+        })
+        .YcOpenAnimationStyle(YCAnimationStyleOrientationBottom)
+        .YcCloseAnimationStyle(YCAnimationStyleOrientationBottom)
+        .YcClickBackgroundClose(YES);
+    }
+    return self;
+}
+
+- (void)show {
+    
+    [YCAlert shareManager].viewController = [[YCActionSheetViewController alloc] init];
+    
+    [super show];
+}
+
+@end

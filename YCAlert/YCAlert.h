@@ -64,8 +64,11 @@ NS_ASSUME_NONNULL_BEGIN
 /** 继续队列显示 */
 + (void)continueQueueDisplay;
 
-/** 清空队列 */
+/** 查询队列中是否包含某一标识 */
 + (void)clearQueue;
+
+/** 清空队列 */
++ (BOOL)containsQueueWithIdentifier:(NSString *)identifier;
 
 /**
  关闭指定标识
@@ -93,7 +96,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface YCAlertConfigModel : NSObject
+@interface YCBaseConfigModel : NSObject
 
 /** ✨通用设置 */
 
@@ -229,11 +232,24 @@ NS_ASSUME_NONNULL_BEGIN
 /** 设置 状态栏样式 -> 格式: .YcStatusBarStyle(UIStatusBarStyleDefault) */
 @property (nonatomic , copy , readonly ) YCConfigToStatusBarStyle YcStatusBarStyle;
 
+/** 设置 系统界面样式 -> 格式: .YcUserInterfaceStyle(UIUserInterfaceStyleUnspecified) */
+@property (nonatomic , copy , readonly ) YCConfigToUserInterfaceStyle YcUserInterfaceStyle API_AVAILABLE(ios(13.0));
 
 /** 显示  -> 格式: .YcShow() */
 @property (nonatomic , copy , readonly ) YCConfig YcShow;
 
-/** ✨alert 专用设置 */
+/** 设置 是否可以关闭 -> 格式: .YcShouldClose(^{ return YES; }) */
+@property (nonatomic, copy, readonly ) YCConfigToBlockReturnBool YcShouldClose;
+
+/** 设置 是否可以关闭(Action 点击) -> 格式: .YcShouldActionClickClose(^(NSInteger index){ return YES; }) */
+@property (nonatomic, copy, readonly ) YCConfigToBlockIntegerReturnBool YcShouldActionClickClose;
+
+/** 设置 当前关闭回调 -> 格式: .YcCloseComplete(^{ //code.. }) */
+@property (nonatomic , copy , readonly ) YCConfigToBlock YcCloseComplete;
+
+@end
+
+@interface YCBaseConfigModel (Alert)
 
 /** 设置 添加输入框 -> 格式: .YcAddTextField(^(UITextField *){ //code.. }) */
 @property (nonatomic , copy , readonly ) YCConfigToConfigTextField YcAddTextField;
@@ -244,7 +260,15 @@ NS_ASSUME_NONNULL_BEGIN
 /** 设置 是否闪避键盘 -> 格式: .YcAvoidKeyboard(YES) */
 @property (nonatomic , copy , readonly ) YCConfigToBool YcAvoidKeyboard;
 
-/** ✨actionSheet 专用设置 */
+@end
+
+@interface YCBaseConfigModel (ActionSheet)
+
+/** 设置 ActionSheet头部的圆角半径 -> 格式: .YcActionSheetHeaderCornerRadii(CornerRadiiMake(13.0f, 13.0f, 13.0f, 13.0f)) */
+@property (nonatomic , copy , readonly ) YCConfigToCornerRadii YcActionSheetHeaderCornerRadii;
+
+/** 设置 ActionSheet取消按钮的圆角半径 -> 格式: .YcActionSheetCancelActionCornerRadii(CornerRadiiMake(13.0f, 13.0f, 13.0f, 13.0f))  */
+@property (nonatomic , copy , readonly ) YCConfigToCornerRadii YcActionSheetCancelActionCornerRadii;
 
 /** 设置 ActionSheet的背景视图颜色 -> 格式: .YcActionSheetBackgroundColor(UIColor) */
 @property (nonatomic , copy , readonly ) YCConfigToColor YcActionSheetBackgroundColor;
@@ -258,17 +282,7 @@ NS_ASSUME_NONNULL_BEGIN
 /** 设置 ActionSheet距离屏幕底部的间距 -> 格式: .YcActionSheetBottomMargin(10.0f) */
 @property (nonatomic , copy , readonly ) YCConfigToFloat YcActionSheetBottomMargin;
 
-/** 设置 是否可以关闭 -> 格式: .YcShouldClose(^{ return YES; }) */
-@property (nonatomic, copy, readonly ) YCConfigToBlockReturnBool YcShouldClose;
-
-/** 设置 是否可以关闭(Action 点击) -> 格式: .YcShouldActionClickClose(^(NSInteger index){ return YES; }) */
-@property (nonatomic, copy, readonly ) YCConfigToBlockIntegerReturnBool YcShouldActionClickClose;
-
-/** 设置 当前关闭回调 -> 格式: .YcCloseComplete(^{ //code.. }) */
-@property (nonatomic , copy , readonly ) YCConfigToBlock YcCloseComplete;
-
 @end
-
 
 @interface YCItem : NSObject
 
@@ -376,11 +390,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface YCAlertConfig : NSObject
+@interface YCBaseConfig : NSObject
 
-@property (nonatomic , strong, nonnull ) YCAlertConfigModel *config;
+@property (nonatomic , strong, nonnull ) YCBaseConfigModel *config;
 
-@property (nonatomic , assign ) YCAlertType type;
+@end
+
+@interface YCAlertConfig : YCBaseConfig
+
+@end
+
+@interface YCActionSheetConfig : YCBaseConfig
 
 @end
 
@@ -394,7 +414,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface YCActionSheetViewController : YCBaseViewController @end
 
 
-@interface UIView (CornerRadii)
+@interface UIView (YCAlertExtension)
+
+@property (nonatomic , assign ) CornerRadii yc_alert_cornerRadii;
 
 CornerRadii CornerRadiiMake(CGFloat topLeft, CGFloat topRight, CGFloat bottomLeft, CGFloat bottomRight);
 
@@ -403,5 +425,15 @@ CornerRadii CornerRadiiZero(void);
 CornerRadii CornerRadiiNull(void);
 
 @end
+
+//@interface UIView (CornerRadii)
+//
+//CornerRadii CornerRadiiMake(CGFloat topLeft, CGFloat topRight, CGFloat bottomLeft, CGFloat bottomRight);
+//
+//CornerRadii CornerRadiiZero(void);
+//
+//CornerRadii CornerRadiiNull(void);
+//
+//@end
 
 NS_ASSUME_NONNULL_END

@@ -9,7 +9,15 @@
 #ifndef YCAlertHelper_h
 #define YCAlertHelper_h
 
-@class YCAlert , YCAlertConfig , YCAlertConfigModel , YCAlertWindow , YCAction , YCItem , YCCustomView;
+@class YCAlert,
+YCBaseConfig,
+YCAlertConfig,
+YCActionSheetConfig,
+YCBaseConfigModel,
+YCAlertWindow,
+YCAction,
+YCItem,
+YCCustomView;
 
 typedef NS_ENUM(NSInteger, YCScreenOrientationType) {
     /** 屏幕方向类型 横屏 */
@@ -17,15 +25,6 @@ typedef NS_ENUM(NSInteger, YCScreenOrientationType) {
     /** 屏幕方向类型 竖屏 */
     YCScreenOrientationTypeVertical
 };
-
-
-typedef NS_ENUM(NSInteger, YCAlertType) {
-    
-    YCAlertTypeAlert,
-    
-    YCAlertTypeActionSheet
-};
-
 
 typedef NS_ENUM(NSInteger, YCActionType) {
     /** 默认 */
@@ -100,32 +99,35 @@ typedef struct {
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef YCAlertConfigModel * _Nonnull (^YCConfig)(void);
-typedef YCAlertConfigModel * _Nonnull (^YCConfigToBool)(BOOL is);
-typedef YCAlertConfigModel * _Nonnull (^YCConfigToInteger)(NSInteger number);
-typedef YCAlertConfigModel * _Nonnull (^YCConfigToFloat)(CGFloat number);
-typedef YCAlertConfigModel * _Nonnull (^YCConfigToString)(NSString *str);
-typedef YCAlertConfigModel * _Nonnull (^YCConfigToView)(UIView *view);
-typedef YCAlertConfigModel * _Nonnull (^YCConfigToColor)(UIColor *color);
-typedef YCAlertConfigModel * _Nonnull (^YCConfigToSize)(CGSize size);
-typedef YCAlertConfigModel * _Nonnull (^YCConfigToPoint)(CGPoint point);
-typedef YCAlertConfigModel * _Nonnull (^YCConfigToEdgeInsets)(UIEdgeInsets insets);
-typedef YCAlertConfigModel * _Nonnull (^YCConfigToAnimationStyle)(YCAnimationStyle style);
-typedef YCAlertConfigModel * _Nonnull (^YCConfigToBlurEffectStyle)(UIBlurEffectStyle style);
-typedef YCAlertConfigModel * _Nonnull (^YCConfigToInterfaceOrientationMask)(UIInterfaceOrientationMask);
-typedef YCAlertConfigModel * _Nonnull (^YCConfigToFloatBlock)(CGFloat(^)(YCScreenOrientationType type));
-typedef YCAlertConfigModel * _Nonnull (^YCConfigToAction)(void(^)(YCAction *action));
-typedef YCAlertConfigModel * _Nonnull (^YCConfigToCustomView)(void(^)(YCCustomView *custom));
-typedef YCAlertConfigModel * _Nonnull (^YCConfigToCornerRadii)(CornerRadii);
-typedef YCAlertConfigModel * _Nonnull (^YCConfigToStringAndBlock)(NSString *str, void (^ _Nullable)(void));
-typedef YCAlertConfigModel * _Nonnull (^YCConfigToConfigLabel)(void(^ _Nullable)(UILabel *label));
-typedef YCAlertConfigModel * _Nonnull (^YCConfigToConfigTextField)(void(^ _Nullable)(UITextField *textField));
-typedef YCAlertConfigModel * _Nonnull (^YCConfigToItem)(void(^)(YCItem *item));
-typedef YCAlertConfigModel * _Nonnull (^YCConfigToBlock)(void(^block)(void));
-typedef YCAlertConfigModel * _Nonnull (^YCConfigToBlockReturnBool)(BOOL(^block)(void));
-typedef YCAlertConfigModel * _Nonnull (^YCConfigToBlockIntegerReturnBool)(BOOL(^block)(NSInteger index));
-typedef YCAlertConfigModel * _Nonnull (^YCConfigToBlockAndBlock)(void(^)(void (^animatingBlock)(void) , void (^animatedBlock)(void)));
-typedef YCAlertConfigModel * _Nonnull (^YCConfigToStatusBarStyle)(UIStatusBarStyle style);
+typedef YCBaseConfigModel * _Nonnull (^YCConfig)(void);
+typedef YCBaseConfigModel * _Nonnull (^YCConfigToBool)(BOOL is);
+typedef YCBaseConfigModel * _Nonnull (^YCConfigToInteger)(NSInteger number);
+typedef YCBaseConfigModel * _Nonnull (^YCConfigToFloat)(CGFloat number);
+typedef YCBaseConfigModel * _Nonnull (^YCConfigToString)(NSString *str);
+typedef YCBaseConfigModel * _Nonnull (^YCConfigToView)(UIView *view);
+typedef YCBaseConfigModel * _Nonnull (^YCConfigToColor)(UIColor *color);
+typedef YCBaseConfigModel * _Nonnull (^YCConfigToSize)(CGSize size);
+typedef YCBaseConfigModel * _Nonnull (^YCConfigToPoint)(CGPoint point);
+typedef YCBaseConfigModel * _Nonnull (^YCConfigToEdgeInsets)(UIEdgeInsets insets);
+typedef YCBaseConfigModel * _Nonnull (^YCConfigToAnimationStyle)(YCAnimationStyle style);
+typedef YCBaseConfigModel * _Nonnull (^YCConfigToBlurEffectStyle)(UIBlurEffectStyle style);
+typedef YCBaseConfigModel * _Nonnull (^YCConfigToInterfaceOrientationMask)(UIInterfaceOrientationMask);
+typedef YCBaseConfigModel * _Nonnull (^YCConfigToFloatBlock)(CGFloat(^)(YCScreenOrientationType type));
+typedef YCBaseConfigModel * _Nonnull (^YCConfigToAction)(void(^)(YCAction *action));
+typedef YCBaseConfigModel * _Nonnull (^YCConfigToCustomView)(void(^)(YCCustomView *custom));
+typedef YCBaseConfigModel * _Nonnull (^YCConfigToCornerRadii)(CornerRadii);
+typedef YCBaseConfigModel * _Nonnull (^YCConfigToStringAndBlock)(NSString *str, void (^ _Nullable)(void));
+typedef YCBaseConfigModel * _Nonnull (^YCConfigToConfigLabel)(void(^ _Nullable)(UILabel *label));
+typedef YCBaseConfigModel * _Nonnull (^YCConfigToConfigTextField)(void(^ _Nullable)(UITextField *textField));
+typedef YCBaseConfigModel * _Nonnull (^YCConfigToItem)(void(^)(YCItem *item));
+typedef YCBaseConfigModel * _Nonnull (^YCConfigToBlock)(void(^block)(void));
+typedef YCBaseConfigModel * _Nonnull (^YCConfigToBlockReturnBool)(BOOL(^block)(void));
+typedef YCBaseConfigModel * _Nonnull (^YCConfigToBlockIntegerReturnBool)(BOOL(^block)(NSInteger index));
+typedef YCBaseConfigModel * _Nonnull (^YCConfigToBlockAndBlock)(void(^)(void (^animatingBlock)(void) , void (^animatedBlock)(void)));
+typedef YCBaseConfigModel * _Nonnull (^YCConfigToStatusBarStyle)(UIStatusBarStyle style);
+
+API_AVAILABLE(ios(13.0))
+typedef YCBaseConfigModel * _Nonnull (^YCConfigToUserInterfaceStyle)(UIUserInterfaceStyle style);
 
 NS_ASSUME_NONNULL_END
 
