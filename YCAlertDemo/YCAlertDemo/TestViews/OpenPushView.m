@@ -8,7 +8,7 @@
 
 #import "OpenPushView.h"
 
-#import "SDAutoLayout.h"
+#import <SDAutoLayout/SDAutoLayout.h>
 
 #import <YCAlert.h>
 

@@ -998,6 +998,11 @@ typedef NS_ENUM(NSInteger, YCBackgroundStyle) {
     [[YCAlert shareManager].queueArray removeAllObjects];
 }
 
++ (BOOL)isQueueEmpty{
+
+    return [YCAlert shareManager].queueArray.count == 0;
+}
+
 + (BOOL)containsQueueWithIdentifier:(NSString *)identifier {
     for (YCBaseConfig *config in [YCAlert shareManager].queueArray) {
         if ([config.config.modelIdentifier isEqualToString:identifier]) {
@@ -1069,6 +1074,16 @@ typedef NS_ENUM(NSInteger, YCBackgroundStyle) {
 
 #pragma mark LazyLoading
 
+- (void)setMainWindow:(UIWindow *)mainWindow {
+    _mainWindow = mainWindow;
+    
+    if (@available(iOS 13.0, *)) {
+        if (mainWindow.windowScene && _ycWindow) {
+            _ycWindow.windowScene = mainWindow.windowScene;
+        }
+    }
+}
+
 - (NSMutableArray <YCBaseConfig *>*)queueArray{
     
     if (!_queueArray) _queueArray = [NSMutableArray array];
@@ -1080,7 +1095,17 @@ typedef NS_ENUM(NSInteger, YCBackgroundStyle) {
     
     if (!_ycWindow) {
         
-        _ycWindow = [[YCAlertWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        if (@available(iOS 13.0, *)) {
+            
+            if (_mainWindow.windowScene) {
+                _ycWindow = [[YCAlertWindow alloc] initWithWindowScene: _mainWindow.windowScene];
+            } else {
+                _ycWindow = [[YCAlertWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+            }
+            
+        } else {
+            _ycWindow = [[YCAlertWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        }
         
         _ycWindow.rootViewController = [[UIViewController alloc] init];
         
@@ -1096,6 +1121,12 @@ typedef NS_ENUM(NSInteger, YCBackgroundStyle) {
 
 @end
 
+
+@interface UIView (YCAlertExtension)
+
+@property (nonatomic , assign ) CornerRadii yc_alert_cornerRadii;
+
+@end
 
 @implementation UIView (YCAlertExtension)
 
@@ -1156,38 +1187,6 @@ CGPathRef _Nullable YCCGPathCreateWithRoundedRect(CGRect bounds, CornerRadii cor
     return path;
 }
 
-+ (void)load{
-    
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        
-        NSArray *selStringsArray = @[@"layoutSubviews"];
-        
-        [selStringsArray enumerateObjectsUsingBlock:^(NSString *selString, NSUInteger idx, BOOL *stop) {
-            
-            NSString *leeSelString = [@"yc_alert_" stringByAppendingString:selString];
-            
-            Method originalMethod = class_getInstanceMethod(self, NSSelectorFromString(selString));
-            
-            Method leeMethod = class_getInstanceMethod(self, NSSelectorFromString(leeSelString));
-            
-            BOOL isAddedMethod = class_addMethod(self, NSSelectorFromString(selString), method_getImplementation(leeMethod), method_getTypeEncoding(leeMethod));
-            
-            if (isAddedMethod) {
-                
-                class_replaceMethod(self, NSSelectorFromString(leeSelString), method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod));
-                
-            } else {
-                
-                method_exchangeImplementations(originalMethod, leeMethod);
-            }
-            
-        }];
-        
-    });
-    
-}
-
 - (void)updateCornerRadii{
     
     if (!CornerRadiiEqualTo([self yc_alert_cornerRadii], CornerRadiiNull())) {
@@ -1222,12 +1221,11 @@ CGPathRef _Nullable YCCGPathCreateWithRoundedRect(CGRect bounds, CornerRadii cor
     
 }
 
-- (void)yc_alert_layoutSubviews{
-    
-    [self yc_alert_layoutSubviews];
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context{
     
     [self updateCornerRadii];
 }
+
 
 - (CornerRadii)yc_alert_cornerRadii{
     
@@ -1248,6 +1246,16 @@ CGPathRef _Nullable YCCGPathCreateWithRoundedRect(CGRect bounds, CornerRadii cor
 }
 
 - (void)setYc_alert_cornerRadii:(CornerRadii)cornerRadii{
+    
+    if (CornerRadiiEqualTo(self.yc_alert_cornerRadii, CornerRadiiNull()) && !CornerRadiiEqualTo(cornerRadii, CornerRadiiNull())) {
+        [self addObserver: self forKeyPath: @"frame" options: NSKeyValueObservingOptionNew context: nil];
+        [self addObserver: self forKeyPath: @"bounds" options: NSKeyValueObservingOptionNew context: nil];
+    }
+    
+    if (!CornerRadiiEqualTo(self.yc_alert_cornerRadii, CornerRadiiNull()) && CornerRadiiEqualTo(cornerRadii, CornerRadiiNull())) {
+        [self removeObserver:self forKeyPath:@"frame"];
+        [self removeObserver:self forKeyPath:@"bounds"];
+    }
     
     NSValue *value = [NSValue valueWithBytes:&cornerRadii objCType:@encode(CornerRadii)];
     

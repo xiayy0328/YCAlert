@@ -1,16 +1,27 @@
 PODS:
-  - YCAlert (1.0.0)
+  - Masonry (1.1.0)
+  - SDAutoLayout (2.2.1)
+  - YCAlert (1.1.0)
 
 DEPENDENCIES:
+  - Masonry
+  - SDAutoLayout
   - YCAlert (from `../`)
+
+SPEC REPOS:
+  trunk:
+    - Masonry
+    - SDAutoLayout
 
 EXTERNAL SOURCES:
   YCAlert:
     :path: "../"
 
 SPEC CHECKSUMS:
-  YCAlert: 5bd81d4e9f50008830c908ca10b276867be17a94
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  SDAutoLayout: 8bf6b3bbc8b01f775d4defbb4fda2ace805461be
+  YCAlert: 1c731bf1aef69dd96d674f6c7ee5939cbd3a915e
 
-PODFILE CHECKSUM: 05b71c1f53fcc22d1cbde78e9a1d44d84a5b2869
+PODFILE CHECKSUM: f0980413aa0bba9425aa1a81359f85567478e6ac
 
 COCOAPODS: 1.8.0

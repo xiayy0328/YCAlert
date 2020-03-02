@@ -67,6 +67,9 @@ NS_ASSUME_NONNULL_BEGIN
 /** 查询队列中是否包含某一标识 */
 + (void)clearQueue;
 
+/** 队列是否为空 */
++ (BOOL)isQueueEmpty;
+
 /** 清空队列 */
 + (BOOL)containsQueueWithIdentifier:(NSString *)identifier;
 
@@ -414,9 +417,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface YCActionSheetViewController : YCBaseViewController @end
 
 
-@interface UIView (YCAlertExtension)
-
-@property (nonatomic , assign ) CornerRadii yc_alert_cornerRadii;
+@interface UIView (CornerRadii)
 
 CornerRadii CornerRadiiMake(CGFloat topLeft, CGFloat topRight, CGFloat bottomLeft, CGFloat bottomRight);
 
@@ -425,15 +426,5 @@ CornerRadii CornerRadiiZero(void);
 CornerRadii CornerRadiiNull(void);
 
 @end
-
-//@interface UIView (CornerRadii)
-//
-//CornerRadii CornerRadiiMake(CGFloat topLeft, CGFloat topRight, CGFloat bottomLeft, CGFloat bottomRight);
-//
-//CornerRadii CornerRadiiZero(void);
-//
-//CornerRadii CornerRadiiNull(void);
-//
-//@end
 
 NS_ASSUME_NONNULL_END

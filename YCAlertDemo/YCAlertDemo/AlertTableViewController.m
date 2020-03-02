@@ -7,7 +7,7 @@
 //
 
 #import "AlertTableViewController.h"
-#import "Masonry.h"
+#import <Masonry/Masonry.h>
 #import <YCAlert.h>
 #import "ShareView.h"
 #import "OpenPushView.h"
@@ -553,10 +553,10 @@
                 
                 // 点击事件Block
             })
-            .YcOpenAnimationStyle(YCAnimationStyleOrientationTop | YCAnimationStyleFade) //这里设置打开动画样式的方向为上 以及淡入效果.
-            .YcCloseAnimationStyle(YCAnimationStyleOrientationBottom | YCAnimationStyleFade) //这里设置关闭动画样式的方向为下 以及淡出效果
-            //.YcOpenAnimationStyle(LEEAnimationStyleOrientationLeft | LEEAnimationStyleZoomEnlarge) //这里设置打开动画样式的方向为左 以及缩放效果.
-            //.YcCloseAnimationStyle(LEEAnimationStyleOrientationRight | LEEAnimationStyleZoomEnlarge) //这里设置关闭动画样式的方向为右 以及缩放效果
+            .YcOpenAnimationStyle(YCAnimationStyleOrientationLeft | YCAnimationStyleZoomEnlarge) //这里设置打开动画样式的方向为左 以及缩放效果.
+            .YcCloseAnimationStyle(YCAnimationStyleOrientationRight | YCAnimationStyleZoomEnlarge) //这里设置关闭动画样式的方向为右 以及缩放效果
+            //            .YcOpenAnimationStyle(YCAnimationStyleOrientationTop | YCAnimationStyleFade) //这里设置打开动画样式的方向为上 以及淡入效果.
+            //            .YcCloseAnimationStyle(YCAnimationStyleOrientationBottom | YCAnimationStyleFade) //这里设置关闭动画样式的方向为下 以及淡出效果
             .YcShow();
         }
             break;
